@@ -1,0 +1,69 @@
+﻿@using HRMS.BusinessEntities;
+@using HRMS.Models;
+@using GridMvc.Html
+@using System.Globalization;
+
+@model object
+
+@{
+    ICRUDModelContainer modelContainer = Model as ICRUDModelContainer;
+    ViewBag.Title = modelContainer.Name;
+
+    TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+    string modeString = textInfo.ToTitleCase(modelContainer.Mode.ToString().ToLower());
+
+    string mainPanelClass = "panel-primary";
+    if (modelContainer.Mode != Mode.LIST) {mainPanelClass = "panel-default";}
+
+    string editPanelClass = "panel-primary";
+    if (!ViewData.ModelState.IsValid) {editPanelClass = "panel-danger";}
+    
+}
+
+<div class="panel-info">
+    &nbsp;
+</div>
+
+<div id="primaryPanel" class="panel @mainPanelClass">
+    <div class="panel-heading">
+        <b>@modelContainer.Name</b>
+        <div class="btn-group pull-right">
+            <a href="~/@modelContainer.Name/Create" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        @{if (modelContainer.Mode != Mode.LIST) { 
+            <div id="EditPane" class="panel @editPanelClass">
+                <div class="panel-heading">
+                    @modeString
+                </div>
+                <div class="panel-body">
+                    @using(Html.BeginForm(modeString, modelContainer.Name))
+                    {
+                        @Html.ValidationSummary(true)
+                        <!--Start: customizable portion-->
+                        @Html.Partial(modelContainer.Name + "Edit", Model)
+                        <!--End: customizable portion-->
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-default" onclick="hideEditPane()">Cancel</button>
+                    }
+                </div>
+            </div>
+        }}
+        
+        @Html.Partial(modelContainer.Name + "Grid", Model)
+        
+    </div>
+
+    <div class="hidden">
+        @using (Html.BeginForm("Delete", modelContainer.Name, FormMethod.Post, new { id="FromDelete" }))
+        { 
+            <input type="hidden" name="Id" id="IdToDelete" />
+            <input type="submit" name="Delete"/>
+        }
+    </div>
+</div>
+

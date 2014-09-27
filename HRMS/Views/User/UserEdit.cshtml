@@ -1,0 +1,36 @@
+﻿@using HRMS.Models;
+@using HRMS.BusinessEntities;
+
+@model ModelContainer<User>
+
+@{
+    <div class="form-group">
+        @Html.Hidden("Id", @Model.Instance.Id)
+        
+        @Html.LabelFor(model => model.Instance.Name)
+        @RenderTextBoxFormControl("Name", Model.Instance.Name)
+
+        @Html.LabelFor(model => model.Instance.Group)
+        @RenderDropDownFormControl("GroupId", Model.GetSelectList("Groups"))
+    </div>
+}
+
+@helper RenderTextBoxFormControl(string name, string value)
+{
+    @Html.TextBox(name, //Name of the variable
+        string.IsNullOrEmpty(value) ? string.Empty : value, //Value of the variable
+        new { @class = "form-control" })
+    @Html.ValidationMessage(name)
+    <br />
+}
+
+@helper RenderDropDownFormControl(string name, IEnumerable<SelectListItem> value) 
+{
+    @Html.DropDownList(
+        name, 
+        value,
+        new { @class = "form-control"}
+    );
+    @Html.ValidationMessage(name);
+    <br/>
+}

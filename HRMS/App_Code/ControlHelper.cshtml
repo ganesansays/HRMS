@@ -1,0 +1,22 @@
+﻿@using System.Web.Mvc;
+
+@helper ExtensionMethod(System.Web.Mvc.HtmlHelper htmlHelper, string name, string value)
+{
+
+}
+
+@functions
+{
+    public static System.Web.WebPages.Html.HtmlHelper HtmlObject
+    {
+        get
+        {
+            WebPage currentWebPage = CurrentPage as WebPage;
+            if (currentWebPage == null)
+            {
+                return null;
+            }
+            return currentWebPage.Html;
+        }
+    } 
+}

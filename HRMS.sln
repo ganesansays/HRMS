@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRMS.WebUI", "HRMS\HRMS.WebUI.csproj", "{7E558AF1-9152-4AE0-B82D-BACD76A6CAC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRMS.Tests", "HRMS.Tests\HRMS.Tests.csproj", "{FB671091-7639-4636-8770-B81470D86C47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.UILayer", "1.UILayer", "{37C66A0D-116B-49D9-BF53-E0774FCD814B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.BusinessLayer", "2.BusinessLayer", "{0AEE8ED1-C9A5-45EA-89E9-5FC25C1B9498}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Repository", "3.Repository", "{FC868273-9147-4AEF-B604-78AB71C951AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Test", "4.Test", "{B4FA886F-3160-47FB-8A7F-69B83A0BE932}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Framework", "5.Framework", "{71ECFDBA-C085-449A-A1BE-701770A4B84B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRMS.BusinessEntities", "HRMS.BusinessEntities\HRMS.BusinessEntities.csproj", "{2C82E649-9B6A-42AF-8F30-02FF65550492}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repostitory", "Repostitory\Repostitory.csproj", "{892B3A13-3BBB-4CC8-A42E-7F1C84B962C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E558AF1-9152-4AE0-B82D-BACD76A6CAC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E558AF1-9152-4AE0-B82D-BACD76A6CAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E558AF1-9152-4AE0-B82D-BACD76A6CAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E558AF1-9152-4AE0-B82D-BACD76A6CAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB671091-7639-4636-8770-B81470D86C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB671091-7639-4636-8770-B81470D86C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB671091-7639-4636-8770-B81470D86C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB671091-7639-4636-8770-B81470D86C47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C82E649-9B6A-42AF-8F30-02FF65550492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C82E649-9B6A-42AF-8F30-02FF65550492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C82E649-9B6A-42AF-8F30-02FF65550492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C82E649-9B6A-42AF-8F30-02FF65550492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892B3A13-3BBB-4CC8-A42E-7F1C84B962C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892B3A13-3BBB-4CC8-A42E-7F1C84B962C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892B3A13-3BBB-4CC8-A42E-7F1C84B962C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892B3A13-3BBB-4CC8-A42E-7F1C84B962C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7E558AF1-9152-4AE0-B82D-BACD76A6CAC7} = {37C66A0D-116B-49D9-BF53-E0774FCD814B}
+		{FB671091-7639-4636-8770-B81470D86C47} = {B4FA886F-3160-47FB-8A7F-69B83A0BE932}
+		{2C82E649-9B6A-42AF-8F30-02FF65550492} = {0AEE8ED1-C9A5-45EA-89E9-5FC25C1B9498}
+		{892B3A13-3BBB-4CC8-A42E-7F1C84B962C3} = {FC868273-9147-4AEF-B604-78AB71C951AD}
+	EndGlobalSection
+EndGlobal
