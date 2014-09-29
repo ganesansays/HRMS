@@ -4,39 +4,26 @@
 @model ModelContainer<Contact>
 
 @{
-    <div class="form-group">
-        @Html.Hidden("Id", @Model.Instance.Id)
+    @Html.Hidden("Id", @Model.Instance.Id)
         
-        @Html.LabelFor(model => model.Instance.Name)
-        @RenderTextBoxFormControl("Name", Model.Instance.Name)
+    @Html.LabelFor(model => model.Instance.Name)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Name", Model.Instance.Name)
 
-        @Html.LabelFor(model => model.Instance.PhoneNumber)
-        @RenderTextBoxFormControl("PhoneNumber", Model.Instance.PhoneNumber)
+    @Html.LabelFor(model => model.Instance.DOB)
+    @ControlHelper.RenderTextBoxFormControl(Html, "DOB", Model.Instance.DOB)
+    
+    @Html.LabelFor(model => model.Instance.PhoneNumber)
+    @ControlHelper.RenderTextBoxFormControl(Html, "PhoneNumber", Model.Instance.PhoneNumber)
 
-        @Html.LabelFor(model => model.Instance.Address)
-        @RenderTextBoxFormControl("Address", Model.Instance.Address)
+    @Html.LabelFor(model => model.Instance.Email)
+    @ControlHelper.RenderEmailBoxFormControl(Html, "Email", Model.Instance.Email)
 
-        @Html.LabelFor(model => model.Instance.PinCodeId)
-        @RenderDropDownFormControl("PinCodeId", Model.GetSelectList("PinCodes"))
-    </div>
-}
+    @Html.LabelFor(model => model.Instance.Url)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Url", Model.Instance.Url)
+    
+    @Html.LabelFor(model => model.Instance.Address)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Address", Model.Instance.Address)
 
-@helper RenderTextBoxFormControl(string name, string value)
-{
-    @Html.TextBox(name, //Name of the variable
-        string.IsNullOrEmpty(value) ? string.Empty : value, //Value of the variable
-        new { @class = "form-control" })
-    @Html.ValidationMessage(name)
-    <br />
-}
-
-@helper RenderDropDownFormControl(string name, IEnumerable<SelectListItem> value)
-{
-    @Html.DropDownList(
-        name,
-        value,
-        new { @class = "form-control" }
-    );
-    @Html.ValidationMessage(name);
-    <br />
+    @Html.LabelFor(model => model.Instance.PinCodeId)
+    @ControlHelper.RenderDropDownFormControl(Html, "PinCodeId", Model.GetSelectList("PinCodes"))
 }

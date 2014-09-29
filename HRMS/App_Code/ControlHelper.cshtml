@@ -1,22 +1,59 @@
-﻿@using System.Web.Mvc;
+﻿@using System.Web.Mvc.Html;
 
-@helper ExtensionMethod(System.Web.Mvc.HtmlHelper htmlHelper, string name, string value)
+@helper RenderTextBoxFormControl(System.Web.Mvc.HtmlHelper Html, string name, string value)
 {
-
+    @Html.TextBox(name, //Name of the variable
+        string.IsNullOrEmpty(value) ? string.Empty : value, //Value of the variable
+        new { @class = "form-control" })
+    @Html.ValidationMessage(name)
+    <br />
 }
 
-@functions
+@helper RenderTextBoxFormControl(System.Web.Mvc.HtmlHelper Html, string name, DateTime value)
 {
-    public static System.Web.WebPages.Html.HtmlHelper HtmlObject
-    {
-        get
-        {
-            WebPage currentWebPage = CurrentPage as WebPage;
-            if (currentWebPage == null)
-            {
-                return null;
-            }
-            return currentWebPage.Html;
-        }
-    } 
+    @Html.TextBox(name, //Name of the variable
+        value == DateTime.MinValue ? string.Empty : value.ToString("yyyy-MM-dd"), //Value of the variable
+        new { @class = "form-control", @type="date" })
+    @Html.ValidationMessage(name)
+    <br />
+}
+
+@helper RenderEmailBoxFormControl(System.Web.Mvc.HtmlHelper Html, string name, string value)
+{
+    @Html.TextBox(name, //Name of the variable
+            string.IsNullOrEmpty(value) ? string.Empty : value, //Value of the variable
+            new { @class = "form-control", @type="email" })
+    @Html.ValidationMessage(name)
+    <br />
+}
+
+@helper RenderUrlBoxFormControl(System.Web.Mvc.HtmlHelper Html, string name, string value)
+{
+    @Html.TextBox(name, //Name of the variable
+            string.IsNullOrEmpty(value) ? string.Empty : value, //Value of the variable
+            new { @class = "form-control", @type = "url" })
+    @Html.ValidationMessage(name)
+    <br />
+}
+
+
+@helper RenderPasswordBoxFormControl(System.Web.Mvc.HtmlHelper Html, string name, string value)
+{
+    @Html.TextBox(name, //Name of the variable
+            string.IsNullOrEmpty(value) ? string.Empty : "**********", //Value of the variable
+            new { @class = "form-control", @type = "password"})
+    @Html.ValidationMessage(name)
+    <br />
+}
+
+
+@helper RenderDropDownFormControl(System.Web.Mvc.HtmlHelper Html, string name, IEnumerable<System.Web.Mvc.SelectListItem> value)
+{
+    @Html.DropDownList(
+        name,
+        value,
+        new { @class = "form-control" }
+    );
+    @Html.ValidationMessage(name);
+    <br />
 }

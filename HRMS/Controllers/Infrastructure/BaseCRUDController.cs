@@ -9,18 +9,16 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public abstract class BaseController<T> : Controller
+    public abstract class BaseCRUDController<T> : Controller
         where T : class, new()
     {
         protected IUnitOfWork uow {get; private set;}
         private BaseRepository<T> repo = null;
-        private string EntityName;
         protected ModelContainer<T> Container { get; private set; }
-        public BaseController(string EntityName)
+        public BaseCRUDController(string EntityName)
         {
             uow = new UnitOfWork();
             repo = new BaseRepository<T>(uow);
-            this.EntityName = EntityName;
             this.Container = new ModelContainer<T>(EntityName);
         }
         //
@@ -28,9 +26,8 @@ namespace HRMS.Controllers
 
         public ActionResult Index()
         {
-            Container.SetValues(Mode.LIST, repo.GetAll().ToList());
-            PopulateDomainValueDictionary();
-            return View("_BodyLayout", Container);
+            //Index Page lists the available entities
+            return NavigetToBodyLayout(Mode.LIST, repo.GetAll().ToList());
         }
 
         //
@@ -39,11 +36,13 @@ namespace HRMS.Controllers
         public ActionResult Details(int id = 0)
         {
             T objInstance = repo.SingleOrDefault(id);
+
             if (objInstance == null)
             {
                 return HttpNotFound();
             }
-            return View(objInstance);
+
+            return NavigetToBodyLayout(Mode.DETAIL, repo.GetAll().ToList(), objInstance);
         }
 
         //
@@ -51,9 +50,7 @@ namespace HRMS.Controllers
 
         public ActionResult Create()
         {
-            Container.SetValues(Mode.CREATE, repo.GetAll().ToList());
-            PopulateDomainValueDictionary();
-            return View("_BodyLayout", Container);
+            return NavigetToBodyLayout(Mode.CREATE, repo.GetAll().ToList());
         }
 
         //
@@ -68,9 +65,7 @@ namespace HRMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            Container.SetValues(Mode.CREATE, repo.GetAll().ToList(), objInstance);
-            PopulateDomainValueDictionary();
-            return View("_BodyLayout", Container);
+            return NavigetToBodyLayout(Mode.CREATE, repo.GetAll().ToList(), objInstance);
         }
 
         //
@@ -85,9 +80,7 @@ namespace HRMS.Controllers
                 return HttpNotFound();
             }
 
-            Container.SetValues(Mode.EDIT, repo.GetAll().ToList(), objInstance);
-            PopulateDomainValueDictionary();
-            return View("_BodyLayout", Container);
+            return NavigetToBodyLayout(Mode.EDIT, repo.GetAll().ToList(), objInstance);
         }
 
         //
@@ -102,9 +95,7 @@ namespace HRMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            Container.SetValues(Mode.EDIT, repo.GetAll().ToList(), objInstance);
-            PopulateDomainValueDictionary();
-            return View("_BodyLayout", Container);
+            return NavigetToBodyLayout(Mode.EDIT, repo.GetAll().ToList(), objInstance);
         }
 
         //
@@ -142,10 +133,16 @@ namespace HRMS.Controllers
         {
             //Default Implementation
         }
-
-        protected void Add(string key, IEnumerable<SelectListItem> value)
+        private ActionResult NavigetToBodyLayout(Mode Mode, List<T> ListOfItems, T Instance = default(T))
         {
-            Container.DomainValueDictionary.Add(key, value);
+            Container.SetValues(Mode, ListOfItems, Instance);
+
+            if (Container.Mode == Models.Mode.EDIT || Container.Mode == Models.Mode.CREATE) 
+            { 
+                PopulateDomainValueDictionary();
+            }
+            
+            return View("_BodyLayout", Container);
         }
 	}
 }

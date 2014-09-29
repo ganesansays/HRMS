@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.BusinessEntities
 {
-    public class PinCode
+    public class PinCode: EntityBase
     {
-        public int Id { get; set; }
-
         [Display(Name = "Pin Code")]
         [Required(ErrorMessage = "Pin Code Cannot be blank")]
         public String Code { get; set; }

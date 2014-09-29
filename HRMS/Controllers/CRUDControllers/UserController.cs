@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class UserController : BaseController<User> 
+    public class UserController : BaseCRUDController<User> 
     {
         public UserController()
             : base("User")
@@ -29,7 +29,7 @@ namespace HRMS.Controllers
                     Value = c.Id.ToString()
                 };
 
-            Add("Groups", selectList);
+            Container.AddSelectList("Groups", selectList);
         }
     }
 }

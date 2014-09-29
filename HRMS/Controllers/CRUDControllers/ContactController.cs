@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class ContactController : BaseController<Contact> 
+    public class ContactController : BaseCRUDController<Contact> 
     {
         public ContactController()
             : base("Contact")
@@ -29,7 +29,7 @@ namespace HRMS.Controllers
                     Value = pinCode.Id.ToString()
                 };
 
-            Add("PinCodes", selectList);
+            Container.AddSelectList("PinCodes", selectList);
         }
     }
 }

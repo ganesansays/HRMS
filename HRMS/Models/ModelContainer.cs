@@ -32,6 +32,11 @@ namespace HRMS.Models
 
         public Mode Mode { get; set; }
 
+        public void AddSelectList(string key, IEnumerable<SelectListItem> value)
+        {
+            DomainValueDictionary.Add(key, value);
+        }
+
         public IEnumerable<SelectListItem> GetSelectList(string Key)
         {
             IEnumerable<SelectListItem> Value = null;

@@ -1,22 +1,13 @@
 ﻿@using HRMS.BusinessEntities;
 @using HRMS.Models;
 @using GridMvc.Html
+@using HRMS.Utils;
 
 @model ModelContainer<PinCode>
 
-@Html.Grid(Model.ListOfItems).Columns(columns =>
-           {
-               columns.Add(item => item.Id).SetWidth(110);
-               columns.Add(item => item.Code).Sortable(true).Filterable(true);
-               columns.Add(item => item.Area).Sortable(true).Filterable(true);
-               columns.Add()
-                    .Encoded(false)
-                    .Sanitized(false)
-                    .SetWidth(30)
-                    .RenderValueAs(o => @<a onclick="deleteRow(@o.Id); return false;" href="javascript:deleteRow(@o.Id); return false;" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span></a>);
-               columns.Add()
-                   .Encoded(false)
-                   .Sanitized(false)
-                   .SetWidth(30)
-                   .RenderValueAs(o => @<a href="~/PinCode/Edit/@o.Id" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>);
-           }).WithPaging(20)
+@Html.TemplateGrid(Html.Grid(Model.ListOfItems).Columns(columns =>
+    {
+        columns.Add(item => item.Id).Css("hidden");
+        columns.Add(item => item.Code).Sortable(true).Filterable(true);
+        columns.Add(item => item.Area).Sortable(true).Filterable(true);
+    }), Model.Name)

@@ -10,7 +10,8 @@ namespace HRMS.Models
     {
         LIST,
         CREATE,
-        EDIT
+        EDIT,
+        DETAIL
     }
 
     public interface ICRUDModelContainer

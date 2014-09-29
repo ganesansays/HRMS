@@ -8,21 +8,33 @@ using System.Threading.Tasks;
 
 namespace HRMS.BusinessEntities
 {
-    public class Contact
+    public class Contact : EntityBase
     {
-        public int Id { get; set; }
-
         [Display(Name = "Contact Name")]
         [Required(ErrorMessage = "Contact Name cannot be blank")]
         public string Name { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Data of birth")]
+        [Required(ErrorMessage = "Enter a valid data of birth")]
+        public DateTime DOB { get; set; }
+
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Display(Name = "Web Site")]
+        [DataType(DataType.Url)]
+        public string Url { get; set; }
 
         [Display(Name = "Address")]
         public string Address { get; set; }
 
         [ForeignKey("PinCode")]
+        [Display(Name = "Pin Code")]
         [Required(ErrorMessage = "Select a pin code for this contact")]
         public int? PinCodeId { get; set; }
 

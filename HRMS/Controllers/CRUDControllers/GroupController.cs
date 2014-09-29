@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class GroupController : BaseController<Group> 
+    public class GroupController : BaseCRUDController<Group> 
     {
         public GroupController()
             : base("Group")

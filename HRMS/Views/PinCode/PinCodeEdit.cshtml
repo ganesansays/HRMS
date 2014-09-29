@@ -4,22 +4,11 @@
 @model ModelContainer<PinCode>
 
 @{
-    <div class="form-group">
-        @Html.Hidden("Id", @Model.Instance.Id)
+    @Html.Hidden("Id", @Model.Instance.Id)
         
-        @Html.LabelFor(model => model.Instance.Code)
-        @RenderTextBoxFormControl("Code", Model.Instance.Code)
+    @Html.LabelFor(model => model.Instance.Code)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Code", Model.Instance.Code)
 
-        @Html.LabelFor(model => model.Instance.Area)
-        @RenderTextBoxFormControl("Area", Model.Instance.Area)
-    </div>
-}
-
-@helper RenderTextBoxFormControl(string name, string value)
-{
-    @Html.TextBox(name, //Name of the variable
-        string.IsNullOrEmpty(value) ? string.Empty : value, //Value of the variable
-        new { @class = "form-control" })
-    @Html.ValidationMessage(name)
-    <br />
+    @Html.LabelFor(model => model.Instance.Area)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Area", Model.Instance.Area)
 }

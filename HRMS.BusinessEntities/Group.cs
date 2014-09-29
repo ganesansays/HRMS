@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.BusinessEntities
 {
-    public class Group
+    public class Group : EntityBase
     {
-        public int Id { get; set; }
-
         [Display(Name = "Group Name")]
         [Required(ErrorMessage = "Group Name cannot be blank")]
         public string Name { get; set; }

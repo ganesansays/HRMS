@@ -17,12 +17,36 @@
 
     string editPanelClass = "panel-primary";
     if (!ViewData.ModelState.IsValid) {editPanelClass = "panel-danger";}
-    
+
+    ModelContainer<EntityBase> obj = Model as ModelContainer<EntityBase>;
 }
 
 <div class="panel-info">
     &nbsp;
 </div>
+
+@{if (modelContainer.Mode != Mode.LIST)
+{
+    <div id="EditPane" class="panel @editPanelClass">
+        <div class="panel-heading">
+            @(modeString + " " + modelContainer.Name)
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm(modeString, modelContainer.Name))
+            {
+
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <!--Start: customizable portion-->
+                    @Html.Partial(modelContainer.Name + "Edit", Model)
+                    <!--End: customizable portion-->
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" onclick="hideEditPane()">Cancel</button>
+            }
+        </div>
+    </div>
+}}
 
 <div id="primaryPanel" class="panel @mainPanelClass">
     <div class="panel-heading">
@@ -35,27 +59,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        @{if (modelContainer.Mode != Mode.LIST) { 
-            <div id="EditPane" class="panel @editPanelClass">
-                <div class="panel-heading">
-                    @modeString
-                </div>
-                <div class="panel-body">
-                    @using(Html.BeginForm(modeString, modelContainer.Name))
-                    {
-                        @Html.ValidationSummary(true)
-                        <!--Start: customizable portion-->
-                        @Html.Partial(modelContainer.Name + "Edit", Model)
-                        <!--End: customizable portion-->
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-default" onclick="hideEditPane()">Cancel</button>
-                    }
-                </div>
-            </div>
-        }}
-        
-        @Html.Partial(modelContainer.Name + "Grid", Model)
-        
+        @Html.Partial(modelContainer.Name + "Grid", Model)    
     </div>
 
     <div class="hidden">
@@ -66,4 +70,3 @@
         }
     </div>
 </div>
-

@@ -4,20 +4,7 @@
 @model ModelContainer<Group>
 
 @{
-    <div class="form-group">
-        @Html.Hidden("Id", @Model.Instance.Id)
-
-        @Html.LabelFor(model => model.Instance.Name)
-        @RenderTextBoxFormControl("Name", Model.Instance.Name)
-        
-    </div>
-}
-
-@helper RenderTextBoxFormControl(string name, string value)
-{
-    @Html.TextBox(name, //Name of the variable
-        string.IsNullOrEmpty(value) ? string.Empty : value, //Value of the variable
-        new { @class = "form-control" })
-    @Html.ValidationMessage(name)
-    <br />
+    @Html.Hidden("Id", @Model.Instance.Id)
+    @Html.LabelFor(model => model.Instance.Name)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Name", Model.Instance.Name)
 }

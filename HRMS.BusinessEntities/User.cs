@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace HRMS.BusinessEntities
 {
-    public class User
+    public class User : EntityBase
     {
-        public int Id { get; set; }
-
         [Display(Name = "User Name")]
         [Required(ErrorMessage = "User Name Cannot be blank")]
         public string Name { get; set; }
 
+        [Display(Name = "Password")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Please provide a password")]
+        public string Password { get; set; }
+        
         [ForeignKey("Group")]
         [Required(ErrorMessage = "Select a group for this user")]
         public int? GroupId { get; set; }

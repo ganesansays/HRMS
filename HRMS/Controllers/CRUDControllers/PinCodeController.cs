@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class PinCodeController : BaseController<PinCode> 
+    public class PinCodeController : BaseCRUDController<PinCode> 
     {
         public PinCodeController()
             : base("PinCode")

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contact.cs" />
+    <Compile Include="EntityBase.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="PinCode.cs" />
     <Compile Include="User.cs" />
