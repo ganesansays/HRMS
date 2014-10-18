@@ -24,8 +24,5 @@ namespace Hrms.Repository
         //Add your new class below
         public DbSet<Group> Groups { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-
-        public DbSet<PinCode> PinCodes { get; set; }
     }
 }

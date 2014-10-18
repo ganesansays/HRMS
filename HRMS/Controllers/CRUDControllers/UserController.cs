@@ -10,15 +10,15 @@ namespace Hrms.Controllers
 {
     public class UserController : BaseCRUDController<User> 
     {
-        public UserController(IBaseRepository<User> repo)
-            : base("User", repo)
+        public UserController(IRepositoryContext repoContext)
+            : base("User", repoContext)
         {
 
         }
 
         protected override void PopulateDomainValueDictionary()
         {
-            BaseRepository<Group> Repo = new BaseRepository<Group>(null);
+            IBaseRepository<Group> Repo = RepoContext.GetRepository<Group>();
 
             IEnumerable<SelectListItem> selectList =
                 from c in Repo.List

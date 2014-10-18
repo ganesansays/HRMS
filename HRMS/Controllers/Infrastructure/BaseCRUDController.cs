@@ -13,11 +13,17 @@ namespace Hrms.Controllers
     public abstract class BaseCRUDController<T> : Controller
         where T : class, new()
     {
+        protected IRepositoryContext RepoContext { get; private set; }
         private IBaseRepository<T> repo = null;
         protected ModelContainer<T> Container { get; private set; }
-        protected BaseCRUDController(string entityName, IBaseRepository<T> repo)
+        protected BaseCRUDController(string entityName, IRepositoryContext repoContext)
         {
-            this.repo = repo;
+            if (repoContext != null)
+            {
+                this.RepoContext = repoContext;
+                this.repo = RepoContext.GetRepository<T>();
+            }
+            
             this.Container = new ModelContainer<T>(entityName);
         }
         //

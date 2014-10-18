@@ -10,8 +10,8 @@ namespace Hrms.Controllers
 {
     public class GroupController : BaseCRUDController<Group> 
     {
-        public GroupController(IBaseRepository<Group> repo)
-            : base("Group", repo)
+        public GroupController(IRepositoryContext repoContext)
+            : base("Group", repoContext)
         {
 
         }

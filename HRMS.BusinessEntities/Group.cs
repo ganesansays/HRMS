@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hrms.BusinessEntities
 {
-    public class Group : EntityBase
+    public partial class Group : EntityBase
     {
         [Display(Name = "Group Name")]
         [Required(ErrorMessage = "Group Name cannot be blank")]
