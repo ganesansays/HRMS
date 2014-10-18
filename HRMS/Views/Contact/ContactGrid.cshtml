@@ -8,7 +8,7 @@
 @Html.TemplateGrid(Html.Grid(Model.ListOfItems).Columns(columns =>
     {
         columns.Add(item => item.Id).Css("hidden");
-        columns.Add(item => item.Name).Sortable(true).Filterable(true);
+        columns.Add(item => item.Name).AddEditLink(column => @<a href='/Contact/Edit/@column.Id'><span>@column.Name</span></a>);
         columns.Add(item => item.PhoneNumber).Sortable(true).Filterable(true);
         columns.Add(item => item.Address).Sortable(true).Filterable(true);
         columns.Add(item => item.PinCode.Area).Sortable(true).Filterable(true);

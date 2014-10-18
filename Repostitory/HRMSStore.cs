@@ -1,4 +1,4 @@
-﻿using HRMS.BusinessEntities;
+﻿using Hrms.BusinessEntities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repostitory
+namespace Hrms.Repository
 {
-    partial class HRMSStore : DbContext
+    public partial class HrmsStore : DbContext
     {
-        public HRMSStore()
+        public HrmsStore()
             : base("name=HRMSStore")
         {
         }

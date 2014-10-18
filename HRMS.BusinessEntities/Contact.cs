@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRMS.BusinessEntities
+namespace Hrms.BusinessEntities
 {
     public class Contact : EntityBase
     {
@@ -17,7 +17,7 @@ namespace HRMS.BusinessEntities
         [DataType(DataType.Date)]
         [Display(Name = "Data of birth")]
         [Required(ErrorMessage = "Enter a valid data of birth")]
-        public DateTime DOB { get; set; }
+        public DateTime Dob { get; set; }
 
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }

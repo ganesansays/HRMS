@@ -1,27 +1,27 @@
-﻿using HRMS.BusinessEntities;
-using Repostitory;
+﻿using Hrms.BusinessEntities;
+using Hrms.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HRMS.Controllers
+namespace Hrms.Controllers
 {
     public class ContactController : BaseCRUDController<Contact> 
     {
-        public ContactController()
-            : base("Contact")
+        public ContactController(IBaseRepository<Contact> repo)
+            : base("Contact", repo)
         {
 
         }
 
-        public override void PopulateDomainValueDictionary()
+        protected override void PopulateDomainValueDictionary()
         {
-            BaseRepository<PinCode> Repo = new BaseRepository<PinCode>(uow);
+            BaseRepository<PinCode> Repo = new BaseRepository<PinCode>(null);
 
             IEnumerable<SelectListItem> selectList =
-                from pinCode in Repo.GetAll()
+                from pinCode in Repo.List
                 select new SelectListItem
                 {
                     Selected = (pinCode.Id == Container.Instance.PinCodeId),

@@ -3,11 +3,11 @@
 @using GridMvc.Html
 @using HRMS.Utils;
 
-@model ModelContainer<User>
+@model List<User>
 
-@Html.TemplateGrid(Html.Grid(Model.ListOfItems).Columns(columns =>
+@Html.TemplateGrid(Html.Grid(Model).Columns(columns =>
 {
     columns.Add(item => item.Id).Css("hidden");
-    columns.Add(item => item.Name).SetWidth(150).Sortable(true).Filterable(true);
-    columns.Add(item => item.Group.Name).SetWidth(150).Sortable(true).Filterable(true);
-}), Model.Name)
+    columns.Add(item => item.Name).AddEditLink(column => @<a href='/User/Edit/@column.Id'><span>@column.Name</span></a>);
+    columns.Add(item => item.Group.Name).Titled("Group Name").Sortable(true).Filterable(true);
+}), "User")

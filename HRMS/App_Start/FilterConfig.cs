@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace HRMS
+namespace Hrms
 {
     public class FilterConfig
     {

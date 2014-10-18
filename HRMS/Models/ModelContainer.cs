@@ -1,34 +1,39 @@
-﻿using HRMS.BusinessEntities;
+﻿using Hrms.BusinessEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HRMS.Models
+namespace Hrms.Models
 {
     public class ModelContainer<T> : ICRUDModelContainer
         where T : new()
     {
 
-        public ModelContainer(string Name)
+        public ModelContainer(string name)
         {
-            this.Name = Name;
+            this.Name = name;
             this.DomainValueDictionary = new Dictionary<string, IEnumerable<SelectListItem>>();
         }
 
-        public void SetValues(Mode Mode, List<T> ListOfItems, T Instance = default(T))
+        public void SetValues(Mode mode, IReadOnlyList<T> listOfItems, T instance)
         {
-            this.Instance = Instance == null ? new T() : Instance;
-            this.ListOfItems = ListOfItems;
-            this.Mode = Mode;
+            this.Instance = instance == null ? new T() : instance;
+            this.ListOfItems = listOfItems;
+            this.Mode = mode;
+        }
+
+        public void SetValues(Mode mode, IReadOnlyList<T> listOfItems)
+        {
+            SetValues(mode, listOfItems, default(T));
         }
 
         public string Name { get; private set; }
 
         public T Instance { get; set; }
 
-        public List<T> ListOfItems { get; set; }
+        IReadOnlyList<T> ListOfItems { get; set; }
 
         public Mode Mode { get; set; }
 
@@ -37,13 +42,29 @@ namespace HRMS.Models
             DomainValueDictionary.Add(key, value);
         }
 
-        public IEnumerable<SelectListItem> GetSelectList(string Key)
+        public IEnumerable<SelectListItem> GetSelectList(string key)
         {
             IEnumerable<SelectListItem> Value = null;
-            DomainValueDictionary.TryGetValue(Key, out Value);
+            DomainValueDictionary.TryGetValue(key, out Value);
             return Value;
         }
 
         public Dictionary<string, IEnumerable<SelectListItem>> DomainValueDictionary { get; private set; }
+
+        public dynamic ModelInstance
+        {
+            get
+            {
+                return Instance;
+            }
+        }
+
+        public dynamic ModelListOfItems
+        {
+            get
+            {
+                return ListOfItems;
+            }
+        }
     }
 }

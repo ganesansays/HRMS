@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRMS.BusinessEntities
+namespace Hrms.BusinessEntities
 {
     public class Group : EntityBase
     {

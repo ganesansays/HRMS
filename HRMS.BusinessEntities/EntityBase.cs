@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRMS.BusinessEntities
+[assembly: CLSCompliant(true)]
+namespace Hrms.BusinessEntities
 {
     public class EntityBase
     {

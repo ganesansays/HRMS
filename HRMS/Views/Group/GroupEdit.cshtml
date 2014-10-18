@@ -1,10 +1,9 @@
-﻿@using HRMS.Models;
-@using HRMS.BusinessEntities;
+﻿@using Hrms.Models;
+@using Hrms.BusinessEntities;
 
-@model ModelContainer<Group>
+@model Group
 
-@{
-    @Html.Hidden("Id", @Model.Instance.Id)
-    @Html.LabelFor(model => model.Instance.Name)
-    @ControlHelper.RenderTextBoxFormControl(Html, "Name", Model.Instance.Name)
-}
+<input type="hidden" name="Id" value="@Model.Id"/>
+
+@Html.LabelFor(model => model.Name)
+@ControlHelper.RenderTextBoxFormControl(Html, "Name", Model.Name)

@@ -1,25 +1,24 @@
-﻿using HRMS.BusinessEntities;
-using HRMS.Models;
-using Repostitory;
+﻿using Hrms.BusinessEntities;
+using Hrms.Models;
+using Hrms.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HRMS.Controllers
+[assembly: CLSCompliant(true)]
+namespace Hrms.Controllers
 {
     public abstract class BaseCRUDController<T> : Controller
         where T : class, new()
     {
-        protected IUnitOfWork uow {get; private set;}
-        private BaseRepository<T> repo = null;
+        private IBaseRepository<T> repo = null;
         protected ModelContainer<T> Container { get; private set; }
-        public BaseCRUDController(string EntityName)
+        protected BaseCRUDController(string entityName, IBaseRepository<T> repo)
         {
-            uow = new UnitOfWork();
-            repo = new BaseRepository<T>(uow);
-            this.Container = new ModelContainer<T>(EntityName);
+            this.repo = repo;
+            this.Container = new ModelContainer<T>(entityName);
         }
         //
         // GET: /Default1/
@@ -27,13 +26,13 @@ namespace HRMS.Controllers
         public ActionResult Index()
         {
             //Index Page lists the available entities
-            return NavigetToBodyLayout(Mode.LIST, repo.GetAll().ToList());
+            return NavigetToBodyLayout(Mode.List, repo.List.ToList());
         }
 
         //
         // GET: /Default1/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             T objInstance = repo.SingleOrDefault(id);
 
@@ -42,7 +41,7 @@ namespace HRMS.Controllers
                 return HttpNotFound();
             }
 
-            return NavigetToBodyLayout(Mode.DETAIL, repo.GetAll().ToList(), objInstance);
+            return NavigetToBodyLayout(Mode.Detail, repo.List.ToList(), objInstance);
         }
 
         //
@@ -50,7 +49,7 @@ namespace HRMS.Controllers
 
         public ActionResult Create()
         {
-            return NavigetToBodyLayout(Mode.CREATE, repo.GetAll().ToList());
+            return NavigetToBodyLayout(Mode.Create, repo.List.ToList());
         }
 
         //
@@ -65,13 +64,13 @@ namespace HRMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            return NavigetToBodyLayout(Mode.CREATE, repo.GetAll().ToList(), objInstance);
+            return NavigetToBodyLayout(Mode.Create, repo.List.ToList(), objInstance);
         }
 
         //
         // GET: /Default1/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             T objInstance = repo.SingleOrDefault(id);
 
@@ -80,7 +79,7 @@ namespace HRMS.Controllers
                 return HttpNotFound();
             }
 
-            return NavigetToBodyLayout(Mode.EDIT, repo.GetAll().ToList(), objInstance);
+            return NavigetToBodyLayout(Mode.Edit, repo.List.ToList(), objInstance);
         }
 
         //
@@ -95,13 +94,13 @@ namespace HRMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            return NavigetToBodyLayout(Mode.EDIT, repo.GetAll().ToList(), objInstance);
+            return NavigetToBodyLayout(Mode.Edit, repo.List.ToList(), objInstance);
         }
 
         //
         // GET: /Default1/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             T objInstance = repo.SingleOrDefault(id);
             if (objInstance == null)
@@ -125,19 +124,17 @@ namespace HRMS.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            uow.Dispose();
+            //uow.Dispose();
             base.Dispose(disposing);
         }
 
-        public virtual void PopulateDomainValueDictionary()
-        {
-            //Default Implementation
-        }
+        protected abstract void PopulateDomainValueDictionary();
+
         private ActionResult NavigetToBodyLayout(Mode Mode, List<T> ListOfItems, T Instance = default(T))
         {
             Container.SetValues(Mode, ListOfItems, Instance);
 
-            if (Container.Mode == Models.Mode.EDIT || Container.Mode == Models.Mode.CREATE) 
+            if (Container.Mode == Models.Mode.Edit || Container.Mode == Models.Mode.Create) 
             { 
                 PopulateDomainValueDictionary();
             }

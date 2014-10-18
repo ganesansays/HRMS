@@ -1,48 +1,56 @@
-﻿@using HRMS.BusinessEntities;
-@using HRMS.Models;
+﻿@using Hrms.BusinessEntities;
+@using Hrms.Models;
 @using GridMvc.Html
 @using System.Globalization;
+@using System.Web.Mvc;
 
-@model object
+@model ICRUDModelContainer
 
 @{
-    ICRUDModelContainer modelContainer = Model as ICRUDModelContainer;
-    ViewBag.Title = modelContainer.Name;
+    
+    ViewBag.Title = Model.Name;
 
     TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-    string modeString = textInfo.ToTitleCase(modelContainer.Mode.ToString().ToLower());
+    string modeString = textInfo.ToTitleCase(Model.Mode.ToString().ToLower());
 
     string mainPanelClass = "panel-primary";
-    if (modelContainer.Mode != Mode.LIST) {mainPanelClass = "panel-default";}
+    if (Model.Mode != Mode.List) {mainPanelClass = "panel-default";}
 
     string editPanelClass = "panel-primary";
     if (!ViewData.ModelState.IsValid) {editPanelClass = "panel-danger";}
-
-    ModelContainer<EntityBase> obj = Model as ModelContainer<EntityBase>;
 }
 
 <div class="panel-info">
     &nbsp;
 </div>
 
-@{if (modelContainer.Mode != Mode.LIST)
+@{if (Model.Mode != Mode.List)
 {
     <div id="EditPane" class="panel @editPanelClass">
         <div class="panel-heading">
-            @(modeString + " " + modelContainer.Name)
+            @(modeString + " " + Model.Name)
         </div>
         <div class="panel-body">
-            @using (Html.BeginForm(modeString, modelContainer.Name))
+            @using (Html.BeginForm(modeString, Model.Name))
             {
 
                 @Html.ValidationSummary(true)
-                <div class="form-group">
+                <div class="form-group col-sm-12">
                     <!--Start: customizable portion-->
-                    @Html.Partial(modelContainer.Name + "Edit", Model)
+                    @{ 
+                        Html.RenderPartial(
+                            Model.Name + "Edit",
+                            Model.ModelInstance,
+                            new ViewDataDictionary { {"DomainValue", Model.DomainValueDictionary} }
+                        );
+                    }
                     <!--End: customizable portion-->
+                    <hr />
+                    <div class="row col-sm-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-default" onclick="hideEditPane()">Cancel</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-default" onclick="hideEditPane()">Cancel</button>
             }
         </div>
     </div>
@@ -50,20 +58,25 @@
 
 <div id="primaryPanel" class="panel @mainPanelClass">
     <div class="panel-heading">
-        <b>@modelContainer.Name</b>
+        <b>@Model.Name</b>
         <div class="btn-group pull-right">
-            <a href="~/@modelContainer.Name/Create" class="btn btn-default btn-sm">
+            <a href="~/@Model.Name/Create" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        @Html.Partial(modelContainer.Name + "Grid", Model)    
+        @{
+            Html.RenderPartial(
+                Model.Name + "Grid",
+                Model.ModelListOfItems
+            );
+        }
     </div>
 
     <div class="hidden">
-        @using (Html.BeginForm("Delete", modelContainer.Name, FormMethod.Post, new { id="FromDelete" }))
+        @using (Html.BeginForm("Delete", Model.Name, FormMethod.Post, new { id = "FromDelete" }))
         { 
             <input type="hidden" name="Id" id="IdToDelete" />
             <input type="submit" name="Delete"/>

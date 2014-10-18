@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -109,9 +110,9 @@
     <None Include="Views\Shared\_GridPager.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HRMS\HRMS.WebUI.csproj">
+    <ProjectReference Include="..\HRMS\Hrms.WebUI.csproj">
       <Project>{7E558AF1-9152-4AE0-B82D-BACD76A6CAC7}</Project>
-      <Name>HRMS.WebUI</Name>
+      <Name>Hrms.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

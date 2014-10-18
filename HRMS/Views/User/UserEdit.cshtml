@@ -1,18 +1,21 @@
 ﻿@using HRMS.Models;
 @using HRMS.BusinessEntities;
+@using HRMS.Utils;
 
-@model ModelContainer<User>
+@model User
 
 @{
-    @Html.Hidden("Id", @Model.Instance.Id)
+    @Html.Hidden("Id", @Model.Id)
         
-    @Html.LabelFor(model => model.Instance.Name)
-    @ControlHelper.RenderTextBoxFormControl(Html, "Name", Model.Instance.Name)
-
-    @Html.LabelFor(model => model.Instance.Password)
-    @ControlHelper.RenderPasswordBoxFormControl(Html, "Password", Model.Instance.Password)    
-
-    @Html.LabelFor(model => model.Instance.Group)
-    @ControlHelper.RenderDropDownFormControl(Html, "GroupId", Model.GetSelectList("Groups"))
-
+    @Html.LabelFor(model => model.Name)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Name", Model.Name)
+    <br />
+    
+    @Html.LabelFor(model => model.Password)
+    @ControlHelper.RenderPasswordBoxFormControl(Html, "Password", Model.Password)    
+    <br />
+    
+    @Html.LabelFor(model => model.Group)
+    @ControlHelper.RenderDropDownFormControl(Html, "GroupId", ViewData.GetSelectList("Groups"))
+    <br />
 }

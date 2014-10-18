@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repostitory
+namespace Hrms.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T>
         where T : class
@@ -25,7 +25,7 @@ namespace Repostitory
         /// <typeparam name="TU">The type to map the result to</typeparam>
         /// <param name="primaryKey">The primary key</param>
         /// <returns>The result mapped to the specified type</returns>
-        public T Single(object primaryKey)
+        public T SingleItem(object primaryKey)
         {
             var dbResult = dbSet.Find(primaryKey);
             return dbResult;
@@ -75,14 +75,17 @@ namespace Repostitory
 
         internal IUnitOfWork UnitOfWork { get { return _unitOfWork; } }
         internal DbContext Database { get { return _unitOfWork.Db; } }
-        public Dictionary<string, string> GetAuditNames(dynamic dynamicObject)
+        public Dictionary<string, string> GetAuditNames(dynamic primaryKey)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> List
         {
-            return dbSet.AsEnumerable().ToList();
+            get
+            {
+                return dbSet.AsEnumerable().ToList();
+            }
         }
     }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HRMS;
-using HRMS.Controllers;
+using Hrms;
+using Hrms.Controllers;
 
-namespace HRMS.Tests.Controllers
+namespace Hrms.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

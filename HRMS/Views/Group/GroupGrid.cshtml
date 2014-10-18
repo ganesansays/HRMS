@@ -1,12 +1,12 @@
-﻿@using HRMS.BusinessEntities;
-@using HRMS.Models;
+﻿@using Hrms.BusinessEntities;
+@using Hrms.Models;
 @using GridMvc.Html
-@using HRMS.Utils;
+@using Hrms.Utilities;
 
-@model ModelContainer<Group>
+@model List<Group>
 
-@Html.TemplateGrid(Html.Grid(Model.ListOfItems).Columns(columns =>
+@Html.TemplateGrid(Html.Grid(Model).Columns(columns =>
 {
     columns.Add(item => item.Id).Css("hidden");
-    columns.Add().Encoded(false).Sanitized(false).Sortable(true).Filterable(true).RenderValueAs(o => @<a href='/Group/Edit/@o.Id'><span>@o.Name</span></a>);
-}), Model.Name)
+    columns.Add(item => item.Name).AddEditLink(column => @<a href='/Group/Edit/@column.Id'><span>@column.Name</span></a>);
+}), "Group")

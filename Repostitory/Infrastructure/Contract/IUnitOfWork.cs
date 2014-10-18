@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 
-namespace Repostitory
+namespace Hrms.Repository
 {
     public interface IUnitOfWork : IDisposable
     {

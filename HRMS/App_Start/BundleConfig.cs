@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace HRMS
+namespace Hrms
 {
     public class BundleConfig
     {

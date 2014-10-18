@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repostitory
+[assembly: CLSCompliant(true)]
+namespace Hrms.Repository
 {
     public interface IBaseRepository<T>
     {
@@ -13,13 +14,13 @@ namespace Repostitory
         /// </summary>
         /// <param name="primaryKey">The primary key of the record</param>
         /// <returns>T</returns>
-        T Single(object primaryKey);
+        T SingleItem(object primaryKey);
         /// <summary>
         /// Retrieve created by and modified by id's FullName
         /// </summary>
         /// <param name="dynamicObject">The primary key of the record</param>
         /// <returns>T</returns>
-        Dictionary<string, string> GetAuditNames(dynamic dynamicObject);
+        Dictionary<string, string> GetAuditNames(dynamic primaryKey);
         /// <summary>
         /// Retrieve a single item by it's primary key or return null if not found
         /// </summary>
@@ -31,7 +32,7 @@ namespace Repostitory
         /// Returns all the rows for type T
         /// </summary>
         /// <returns></returns>
-        IEnumerable<T> GetAll();
+        IEnumerable<T> List {get; }
 
         /// <summary>
         /// Does this item exist by it's primary key

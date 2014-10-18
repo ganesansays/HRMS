@@ -7,8 +7,8 @@
     <ProjectGuid>{2C82E649-9B6A-42AF-8F30-02FF65550492}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HRMS.BusinessEntities</RootNamespace>
-    <AssemblyName>HRMS.BusinessEntities</AssemblyName>
+    <RootNamespace>Hrms.BusinessEntities</RootNamespace>
+    <AssemblyName>Hrms.BusinessEntities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Contact.cs" />
     <Compile Include="EntityBase.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="PinCode.cs" />
     <Compile Include="User.cs" />

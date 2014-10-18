@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
-namespace HRMS.Models
+namespace Hrms.Models
 {
     public enum Mode
     {
-        LIST,
-        CREATE,
-        EDIT,
-        DETAIL
+        List,
+        Create,
+        Edit,
+        Detail
     }
 
     public interface ICRUDModelContainer
@@ -19,5 +20,11 @@ namespace HRMS.Models
         Mode Mode { get; }
 
         String Name { get; }
+
+        object ModelInstance {get;}
+
+        object ModelListOfItems { get; }
+
+        Dictionary<string, IEnumerable<SelectListItem>> DomainValueDictionary { get; }
     }
 }

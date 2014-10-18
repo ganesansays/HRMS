@@ -5,22 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repostitory
+namespace Hrms.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
         //private TransactionScope _transaction;
         private readonly DbContext _db;
 
-        public UnitOfWork()
+        public UnitOfWork(DbContext context)
         {
-            _db = new HRMSStore();
+            _db = context;
         }
 
-        public void Dispose()
-        {
-
-        }
 
         public void StartTransaction()
         {
@@ -37,6 +33,24 @@ namespace Repostitory
         public DbContext Db
         {
             get { return _db; }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // free managed resources
+                _db.Dispose();
+            }
+
+            // free native resources if there are any.
+
         }
     }
 }
