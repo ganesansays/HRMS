@@ -11,6 +11,12 @@ namespace Hrms.BusinessEntities
     {
         [Display(Name = "Group Name")]
         [Required(ErrorMessage = "Group Name cannot be blank")]
+        [MaxLength(20)]
         public string Name { get; set; }
+
+        public static Group Sample()
+        {
+            return new Group() { Name = "Group Name" };
+        }
     }
 }

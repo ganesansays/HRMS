@@ -15,6 +15,15 @@ namespace Hrms.Repository
             : base("name=HRMSStore")
         {
         }
+
+        public HrmsStore(bool dropDb)
+            : base("name=HRMSStore")
+        {
+            if (dropDb)
+            {
+                Database.SetInitializer<HrmsStore>(new DropCreateDatabaseAlways<HrmsStore>());
+            }
+        }
     
         /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

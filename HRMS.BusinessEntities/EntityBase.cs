@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 [assembly: CLSCompliant(true)]
 namespace Hrms.BusinessEntities
 {
-    public class EntityBase
+    public abstract class EntityBase
     {
         public int Id { get; set; }
     }

@@ -12,66 +12,70 @@ using Hrms.Models;
 namespace HRMS.Tests.Controllers
 {
     [TestClass]
-    public class GroupControllerTest
+    public class GroupControllerTest 
+        : BaseCRUDControllerTest<GroupController, Group>
     {
-        [TestMethod]
-        public void CleanUp()
+
+        public GroupControllerTest()
+            : base("Group")
         {
-            HrmsStore store = new HrmsStore();
-            store.Database.ExecuteSqlCommand("delete from dbo.groups");
+
         }
 
         [TestMethod]
-        public void TestCreatePage()
+        public void TestCreateAGroup()
         {
-            IRepositoryContext RepoContext = new DBRepositoryContext(new UnitOfWork(new HrmsStore()));
-            GroupController controller = new GroupController(RepoContext);
-
+            //Arrange
+            Group groupToBeCreated = Group.Sample();
+            
             //Act
-            ActionResult result = controller.Create();
-            ViewResult vResult = result as ViewResult;
-
+            Group createdGroup = TestCreateAnEntity(groupToBeCreated);
+            
             //Assert
-            Assert.IsInstanceOfType(vResult.Model, typeof(ModelContainer<Group>));
-            Assert.AreEqual((vResult.Model as ModelContainer<Group>).Instance.Id, 0);
+            Assert.AreEqual(createdGroup.Name, groupToBeCreated.Name);
         }
-        
+
+        [TestMethod]
+        public void TestEditAGroup()
+        {
+            //Step 1. Added a dummy group and view it for editing
+            //Arrange
+            Group dummyGroup = Group.Sample();
+            //Act
+            Group groupToBeEdited = TestEditPageView(dummyGroup);
+            //Assert
+            Assert.AreEqual(groupToBeEdited.Name, dummyGroup.Name);
+            
+            //Step 2: Update some information of the dummy group and test
+            //Arrange
+            groupToBeEdited.Name = "Updated Group Name";
+            //Act
+            Group editedGroup = TestEditPost(groupToBeEdited);
+           //Assert
+            Assert.AreEqual(editedGroup.Name, "Updated Group Name");
+        }
+
+        [TestMethod]
+        public void TestDeleteAGroup()
+        {
+            Group dummyGroup = Group.Sample();
+
+            TestDeletePost(dummyGroup);
+        }
+
         [TestMethod]
         [ExpectedException(typeof(DbEntityValidationException))]
-        public void TestCreateAGroupWithoutMandatoryValues()
+        public void TestMaxLengthForGroupName()
         {
             //Arrange
-            Group group = new Group();
-
-            IRepositoryContext RepoContext = new DBRepositoryContext(new UnitOfWork(new HrmsStore()));
-            GroupController controller = new GroupController(RepoContext);
+            Group group = Group.Sample();
+            group.Name = "New Group 12345678901"; //21 characters, should throw error
 
             //Act
-            ActionResult result = controller.Create(group);
-        }
-
-        [TestMethod]
-        public void TestCreateAGroupWithMandatoryValues()
-        {
-            //Arrange
-            Group group = new Group();
-            group.Name = "Dummy Group Name";
-
-            IRepositoryContext RepoContext = new DBRepositoryContext(new UnitOfWork(new HrmsStore()));
-            GroupController controller = new GroupController(RepoContext);
-
-            //Act
-            ActionResult result = controller.Create(group);
-            RedirectToRouteResult routeResult = result as RedirectToRouteResult;
+            TestCreateAnEntity(group);
 
             //Assert
-            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
-            List<Group> groupList = RepoContext.GetRepository<Group>().List.ToList();
-            Assert.AreEqual(groupList.Count, 1);
-            Assert.AreEqual(groupList[0].Name, "Dummy Group Name");
-
-            //Clean up
-            CleanUp();
+            //No assertion required. Action should be throwing DbEntityValidationException
         }
     }
 }

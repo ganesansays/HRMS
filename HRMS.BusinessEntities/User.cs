@@ -24,5 +24,10 @@ namespace Hrms.BusinessEntities
         public int? GroupId { get; set; }
         
         public virtual Group Group { get; set; }
+
+        public static User Sample()
+        {
+            return new User() { Name = "User Name", Password = "Password" };
+        }
     }
 }
