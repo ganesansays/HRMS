@@ -11,7 +11,11 @@ namespace Hrms.Utilities
 {
     public static class HTMLHelperExtension
     {
-        public static IGridHtmlOptions<T> TemplateGrid<TModel, T>(this HtmlHelper<TModel> helper, IGridHtmlOptions<T> Grid, string Controller) where T : EntityBase
+        public static IGridHtmlOptions<T> TemplateGrid<TModel, T>(
+                this HtmlHelper<TModel> helper, 
+                IGridHtmlOptions<T> Grid, 
+                string Controller) 
+            where T : EntityBase<T>, new()
         {
             if (Grid == null) return null;
 

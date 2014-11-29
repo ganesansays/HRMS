@@ -8,26 +8,46 @@ using System.Threading.Tasks;
 
 namespace Hrms.BusinessEntities
 {
-    public class User : EntityBase
+    public class User : EntityBase<User>
     {
         [Display(Name = "User Name")]
-        [Required(ErrorMessage = "User Name Cannot be blank")]
+        [Required(ErrorMessage = "User Name Cannot be blank.")]
         public string Name { get; set; }
 
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Please provide a password")]
+        [Required(ErrorMessage = "Password cannot be blank.")]
+        [StringLength(30, ErrorMessage = "Must be between {2} and {1} characters long.", MinimumLength = 6)]
         public string Password { get; set; }
         
         [ForeignKey("Group")]
-        [Required(ErrorMessage = "Select a group for this user")]
+        [Required(ErrorMessage = "Select a group for this user.")]
         public int? GroupId { get; set; }
         
         public virtual Group Group { get; set; }
 
-        public static User Sample()
+        public void PopulateDummyValues()
         {
-            return new User() { Name = "User Name", Password = "Password" };
+            Name = "User Name";
+            Password = "Password";
+        }
+
+        public override bool CompareByValue(User otherEntity)
+        {
+            if (otherEntity == null) return false;
+            return (
+                    this.Name == otherEntity.Name && 
+                    this.Password == otherEntity.Password &&
+                    this.GroupId == otherEntity.GroupId
+                );
+        }
+
+        public override void Merge(User otherEntity)
+        {
+            if (otherEntity == null) return;
+            this.Name = otherEntity.Name;
+            this.Password = otherEntity.Password;
+            this.GroupId = otherEntity.GroupId;
         }
     }
 }

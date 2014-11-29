@@ -15,67 +15,46 @@ namespace HRMS.Tests.Controllers
     public class GroupControllerTest 
         : BaseCRUDControllerTest<GroupController, Group>
     {
-
         public GroupControllerTest()
             : base("Group")
         {
+            List<ErrorScenarioContext<Group>> errorScenarios = new List<ErrorScenarioContext<Group>>();
+            errorScenarios.Add(GetRequiredFieldsErrorScenario());
+            errorScenarios.Add(GetMaxLengthErrorScenario());
 
+            SetErrorScenarios(errorScenarios);
         }
 
-        [TestMethod]
-        public void TestCreateAGroup()
+        private ErrorScenarioContext<Group> GetMaxLengthErrorScenario()
         {
-            //Arrange
-            Group groupToBeCreated = Group.Sample();
-            
-            //Act
-            Group createdGroup = TestCreateAnEntity(groupToBeCreated);
-            
-            //Assert
-            Assert.AreEqual(createdGroup.Name, groupToBeCreated.Name);
+            Group errorGroup = new Group() { Name = "New Group 12345678901"};
+            Dictionary<string, string> requiredFields = new Dictionary<string, string>();
+            requiredFields.Add("Name", "Must be between 1 and 20 characters long.");
+
+            return new ErrorScenarioContext<Group>("MaxLength", errorGroup, requiredFields);
         }
 
-        [TestMethod]
-        public void TestEditAGroup()
+        private ErrorScenarioContext<Group> GetRequiredFieldsErrorScenario()
         {
-            //Step 1. Added a dummy group and view it for editing
-            //Arrange
-            Group dummyGroup = Group.Sample();
-            //Act
-            Group groupToBeEdited = TestEditPageView(dummyGroup);
-            //Assert
-            Assert.AreEqual(groupToBeEdited.Name, dummyGroup.Name);
-            
-            //Step 2: Update some information of the dummy group and test
-            //Arrange
-            groupToBeEdited.Name = "Updated Group Name";
-            //Act
-            Group editedGroup = TestEditPost(groupToBeEdited);
-           //Assert
-            Assert.AreEqual(editedGroup.Name, "Updated Group Name");
+            Group entity = new Group();
+            Dictionary<string, string> requiredFields = new Dictionary<string, string>();
+            requiredFields.Add("Name", "Group name cannot be blank.");
+
+            return new ErrorScenarioContext<Group>("RequiredFields", entity, requiredFields);
         }
 
-        [TestMethod]
-        public void TestDeleteAGroup()
+        protected override Group GetDummyEntity()
         {
-            Group dummyGroup = Group.Sample();
-
-            TestDeletePost(dummyGroup);
+            Group dummyGroup = new Group();
+            dummyGroup.PopulateDummyValues();
+            return dummyGroup;
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DbEntityValidationException))]
-        public void TestMaxLengthForGroupName()
+        protected override Group GetEntityToBeSaved(Group inputEntity)
         {
-            //Arrange
-            Group group = Group.Sample();
-            group.Name = "New Group 12345678901"; //21 characters, should throw error
+            inputEntity.Name = "Updated Group Name";
 
-            //Act
-            TestCreateAnEntity(group);
-
-            //Assert
-            //No assertion required. Action should be throwing DbEntityValidationException
+            return inputEntity;
         }
     }
 }

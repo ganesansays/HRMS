@@ -98,6 +98,8 @@
     <Compile Include="Controllers\GroupControllerTest.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\DbValidationErrorComparer.cs" />
+    <Compile Include="Utilities\FuncEqualityComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
