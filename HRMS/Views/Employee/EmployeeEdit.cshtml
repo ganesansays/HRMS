@@ -1,0 +1,15 @@
+﻿@using Hrms.BusinessEntities;
+
+@model Employee
+
+@{
+    @Html.Hidden("Id", @Model.Id)
+
+    @Html.LabelFor(model => model.Name)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Name", Model.Name)
+    <br />
+
+    @Html.LabelFor(model => model.Dob)
+    @ControlHelper.RenderTextBoxFormControl(Html, "Dob", Model.Dob)
+    <br />
+}

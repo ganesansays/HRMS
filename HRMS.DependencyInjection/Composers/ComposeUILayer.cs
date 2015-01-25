@@ -19,7 +19,7 @@ namespace Hrms.DependencyInjection
         public static void Compose(IUnityContainer container)
         {
             //Controller injection
-            container.RegisterType<HrmsStore>(new InjectionConstructor(false));
+            container.RegisterType<HrmsStore>(new InjectionConstructor(true));
             container.RegisterType<DbContext, HrmsStore>();
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType(typeof(IBaseRepository<>), typeof(BaseRepository<>));

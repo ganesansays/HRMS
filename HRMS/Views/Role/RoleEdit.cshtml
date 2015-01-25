@@ -1,0 +1,13 @@
+﻿@using Hrms.Models;
+@using Hrms.BusinessEntities;
+@using Hrms.Utilities;
+
+@model Role
+
+@{
+    @Html.Hidden("Id", @Model.Id)
+
+    @Html.LabelFor(model => model.RoleName)
+    @ControlHelper.RenderTextBoxFormControl(Html, "RoleName", Model.RoleName) //Html, "<MemberVariableName>", MemberVariable
+    <br />
+}

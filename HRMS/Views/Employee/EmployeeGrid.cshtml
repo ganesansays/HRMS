@@ -1,0 +1,13 @@
+﻿@using Hrms.BusinessEntities;
+@using Hrms.Models;
+@using GridMvc.Html
+@using Hrms.Utilities;
+
+@model List<Employee>
+
+@Html.TemplateGrid(Html.Grid(Model).Columns(columns =>
+{
+    /*ID*/ columns.Add(item => item.Id).Css("hidden");
+    /*Name*/ columns.Add(item => item.Name).AddEditLink(column => @<a href='/Emplyee/Edit/@column.Id'><span>@column.Name</span></a>);
+    /*Dob*/ columns.Add(item => item.Dob).Titled("Date of Birth").Sortable(true).Filterable(true);
+}), "Employee")

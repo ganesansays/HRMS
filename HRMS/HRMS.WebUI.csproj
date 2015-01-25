@@ -183,6 +183,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\CRUDControllers\EmployeeController.cs" />
+    <Compile Include="Controllers\CRUDControllers\RoleController.cs" />
     <Compile Include="Controllers\Infrastructure\BaseCRUDController.cs" />
     <Compile Include="Controllers\CRUDControllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -250,6 +252,10 @@
     <Content Include="Views\User\UserEdit.cshtml" />
     <Content Include="Views\Group\GroupEdit.cshtml" />
     <Content Include="Views\Group\GroupGrid.cshtml" />
+    <Content Include="Views\Role\RoleEdit.cshtml" />
+    <Content Include="Views\Role\RoleGrid.cshtml" />
+    <Content Include="Views\Employee\EmployeeEdit.cshtml" />
+    <Content Include="Views\Employee\EmployeeGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -48,9 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

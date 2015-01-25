@@ -1,0 +1,12 @@
+﻿@using Hrms.BusinessEntities;
+@using Hrms.Models;
+@using GridMvc.Html
+@using Hrms.Utilities;
+
+@model List<Role>
+
+@Html.TemplateGrid(Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(item => item.Id).Css("hidden");
+    columns.Add(item => item.RoleName).AddEditLink(column => @<a href='/Role/Edit/@column.Id'><span>@column.RoleName</span></a>);
+}), "Role")
